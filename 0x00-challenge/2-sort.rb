@@ -1,32 +1,31 @@
 ###
 #
-# Sort integer arguments (ascending)
+#  Sort integer arguments (ascending)
 #
 ###
 
 result = []
 ARGV.each do |arg|
-    # Skip if not an integer
-    next if arg !~ /^-?\d+$/
+    # skip if not integer
+    next if arg !~ /^-?[0-9]+$/
 
-    # Convert to integer
+    # convert to integer
     i_arg = arg.to_i
 
-    # Find the correct position to insert
+    # insert result at the right position
     is_inserted = false
     i = 0
     l = result.size
     while !is_inserted && i < l do
-        if result[i] <= i_arg
+        if result[i] < i_arg
             i += 1
         else
+            result.insert(i, i_arg)
             is_inserted = true
             break
         end
     end
-
-    # Insert the integer at the correct position
-    result.insert(i, i_arg) unless is_inserted
+    result << i_arg if !is_inserted
 end
 
 puts result
